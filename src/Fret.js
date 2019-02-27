@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class Fret extends Component {
   static propTypes = {
-    note: PropTypes.string,
+    note: PropTypes.object,
     checked: PropTypes.bool
   };
 
@@ -15,9 +15,13 @@ class Fret extends Component {
     const { note, checked } = this.props;
     return (
       <div className={`fret${checked ? " checked" : ""}`}>
-        <div className="note">{note}</div>
+        <div className="note">{note.name}</div>
         <div>
-          <input type="checkbox" name={note} checked={checked} />
+          <input
+            type="checkbox"
+            name={`${note.name}${note.octave}`}
+            checked={checked}
+          />
         </div>
       </div>
     );

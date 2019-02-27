@@ -6,7 +6,11 @@ class String extends Component {
     return (
       <div className="string">
         {this.props.notes.map((note, index) => (
-          <Fret key={`${note}-fret`} note={note} fretNumber={index} />
+          <Fret
+            key={`${note.name}${note.octave}-fret`}
+            note={note}
+            fretNumber={index}
+          />
         ))}
       </div>
     );

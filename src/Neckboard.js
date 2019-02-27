@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Notes, goToIntervalAfter } from "./constants/Notes";
+import { goToIntervalAfter } from "./constants/Notes";
 import String from "./String";
 
 class Neckboard extends Component {
@@ -44,7 +44,10 @@ class Neckboard extends Component {
     return (
       <div className="neckboard">
         {neckboard.map(stringNotes => (
-          <String key={`${stringNotes}-string`} notes={stringNotes} />
+          <String
+            key={`${stringNotes[0].name}${stringNotes[0].octave}-string`}
+            notes={stringNotes}
+          />
         ))}
       </div>
     );

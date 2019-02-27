@@ -17,7 +17,12 @@ class App extends Component {
           <Neckboard
             neckboardSchemas={{
               fretsPerString: 12,
-              strings: ["G", "D", "A", "E"]
+              strings: [
+                { name: "G", octave: 2 },
+                { name: "D", octave: 2 },
+                { name: "A", octave: 1 },
+                { name: "E", octave: 1 }
+              ]
             }}
           />
           <button type="submit">Submit</button>
