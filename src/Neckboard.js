@@ -9,6 +9,7 @@ class Neckboard extends Component {
       neckboard: []
     };
   }
+
   /**
    * Build an array with all notes between start and lastFret
    *

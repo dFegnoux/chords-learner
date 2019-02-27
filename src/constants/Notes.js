@@ -1,9 +1,19 @@
 const Notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-export function getNotes() {
+export function getNotesName() {
   return Notes;
 }
 
+export function getNoteByName(name, octave = 0) {
+  return { name, octave };
+}
+
+/**
+ * Get the note from the root + interval
+ * @param {number} interval
+ * @param {object} rootNote
+ * @returns Note
+ */
 export function goToIntervalAfter(interval, rootNote) {
   const rootNoteIndex = Notes.indexOf(rootNote.name);
 

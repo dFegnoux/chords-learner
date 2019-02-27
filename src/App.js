@@ -2,8 +2,16 @@ import React, { Component } from "react";
 import "./App.css";
 
 import Neckboard from "./Neckboard";
+import { getChordFromRoot } from "./constants/Chords";
+import { getNoteByName } from "./constants/Notes";
+import { getScaleNotesFromRoot } from "./constants/Scales";
 
 class App extends Component {
+  componentDidMount() {
+    console.log(getChordFromRoot(getNoteByName("C"), "major"));
+    console.log(getScaleNotesFromRoot(getNoteByName("C"), "major"));
+  }
+
   render() {
     return (
       <div className="App">
