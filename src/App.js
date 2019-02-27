@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+
+import Neckboard from "./Neckboard";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="chordToGuess">
+          <span>
+            Chord to guess : <b>C Maj 7</b>
+          </span>
+        </div>
+
+        <form>
+          <Neckboard
+            neckboardSchemas={{
+              fretsPerString: 12,
+              strings: ["G", "D", "A", "E"]
+            }}
+          />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     );
   }
