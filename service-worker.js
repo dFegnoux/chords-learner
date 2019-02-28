@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/chords-learner/precache-manifest.725b8fe94efc4aba59d4fe1e2694e22a.js"
+  "/chords-learner/precache-manifest.63ede1a6dd59cd749234288c7b997ad8.js"
 );
 
 workbox.clientsClaim();
