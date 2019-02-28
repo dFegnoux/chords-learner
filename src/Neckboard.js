@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { goToIntervalAfter } from "./constants/Notes";
+import PropTypes from "prop-types";
 import String from "./String";
 
 class Neckboard extends Component {
+  static propTypes = {
+    notesToDisplay: PropTypes.array
+  };
+
+  static defaulProps = {
+    notesToDisplay: []
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +47,27 @@ class Neckboard extends Component {
     this.setState({
       neckboard: this.buildNeckboard(this.props.neckboardSchemas)
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { notesToDisplay } = this.props;
+    const { neckboard } = this.state;
+    if (
+      notesToDisplay.length &&
+      notesToDisplay.length !== prevProps.notesToDisplay.length
+    ) {
+      const updatedFretboard = neckboard.map(string => {
+        return string.map(fret => {
+          return {
+            ...fret,
+            checked: !!notesToDisplay.find(note => note.name === fret.name)
+          };
+        });
+      });
+      this.setState({
+        neckboard: updatedFretboard
+      });
+    }
   }
 
   render() {

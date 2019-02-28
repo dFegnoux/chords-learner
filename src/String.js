@@ -10,6 +10,7 @@ class String extends Component {
             key={`${note.name}${note.octave}-fret`}
             note={note}
             fretNumber={index}
+            checked={note.checked}
           />
         ))}
       </div>
