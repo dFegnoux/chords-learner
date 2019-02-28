@@ -17,7 +17,7 @@ class App extends Component {
       <div className="App">
         <div className="chordToGuess">
           <span>
-            Chord to guess : <b>C Maj 7</b>
+            Chord to guess : <b>C Maj</b>
           </span>
         </div>
 
