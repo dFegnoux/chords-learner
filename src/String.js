@@ -11,6 +11,7 @@ class String extends Component {
             note={note}
             fretNumber={index}
             checked={note.checked}
+            hintEnabled={note.hintEnabled}
           />
         ))}
       </div>

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import Neckboard from "./Neckboard";
-import { getChordFromRoot } from "./constants/Chords";
-import { getNoteByName } from "./constants/Notes";
-import { getScaleNotesFromRoot } from "./constants/Scales";
+import Fretboard from "./Fretboard";
+import { getChordFromRoot } from "./helpers/Chords";
+import { getNoteByName } from "./helpers/Notes";
+import { getScaleNotesFromRoot } from "./helpers/Scales";
 
 class App extends Component {
   state = {
@@ -37,7 +37,7 @@ class App extends Component {
         </div>
 
         <form>
-          <Neckboard
+          <Fretboard
             neckboardSchemas={{
               fretsPerString: 12,
               strings: [

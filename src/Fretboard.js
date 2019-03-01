@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { goToIntervalAfter } from "./constants/Notes";
+import { goToIntervalAfter } from "./helpers/Notes";
 import PropTypes from "prop-types";
 import String from "./String";
 
-class Neckboard extends Component {
+class Fretboard extends Component {
   static propTypes = {
     notesToDisplay: PropTypes.array
   };
@@ -15,7 +15,7 @@ class Neckboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      neckboard: []
+      fretboard: []
     };
   }
 
@@ -37,7 +37,7 @@ class Neckboard extends Component {
     return string;
   }
 
-  buildNeckboard(neckboardSchemas) {
+  buildFretboard(neckboardSchemas) {
     return neckboardSchemas.strings.map(firstNote =>
       this.buildString(firstNote, neckboardSchemas.fretsPerString)
     );
@@ -45,36 +45,38 @@ class Neckboard extends Component {
 
   componentDidMount() {
     this.setState({
-      neckboard: this.buildNeckboard(this.props.neckboardSchemas)
+      fretboard: this.buildFretboard(this.props.neckboardSchemas)
     });
   }
 
+  checkNote(note, string) {}
+
   componentDidUpdate(prevProps) {
     const { notesToDisplay } = this.props;
-    const { neckboard } = this.state;
+    const { fretboard } = this.state;
     if (
       notesToDisplay.length &&
       notesToDisplay.length !== prevProps.notesToDisplay.length
     ) {
-      const updatedFretboard = neckboard.map(string => {
+      const updatedFretboard = fretboard.map(string => {
         return string.map(fret => {
           return {
             ...fret,
-            checked: !!notesToDisplay.find(note => note.name === fret.name)
+            hintEnabled: !!notesToDisplay.find(note => note.name === fret.name)
           };
         });
       });
       this.setState({
-        neckboard: updatedFretboard
+        fretboard: updatedFretboard
       });
     }
   }
 
   render() {
-    const { neckboard } = this.state;
+    const { fretboard } = this.state;
     return (
-      <div className="neckboard">
-        {neckboard.map(stringNotes => (
+      <div className="fretboard">
+        {fretboard.map(stringNotes => (
           <String
             key={`${stringNotes[0].name}${stringNotes[0].octave}-string`}
             notes={stringNotes}
@@ -85,4 +87,4 @@ class Neckboard extends Component {
   }
 }
 
-export default Neckboard;
+export default Fretboard;

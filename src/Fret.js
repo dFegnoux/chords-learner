@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 class Fret extends Component {
   static propTypes = {
     note: PropTypes.object,
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+    hintEnabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -12,9 +13,13 @@ class Fret extends Component {
   };
 
   render() {
-    const { note, checked } = this.props;
+    const { note, checked, hintEnabled } = this.props;
     return (
-      <div className={`fret${checked ? " checked" : ""}`}>
+      <div
+        className={`fret${checked ? " checked" : ""}${
+          hintEnabled ? " hint" : ""
+        }`}
+      >
         <div className="note">{note.name}</div>
         <div>
           <input
