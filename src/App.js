@@ -8,7 +8,7 @@ import { getScaleNotesFromRoot } from "./helpers/Scales";
 
 class App extends Component {
   state = {
-    chordToDisplay: ""
+    chordToDisplay: []
   };
 
   componentDidMount() {
@@ -19,6 +19,12 @@ class App extends Component {
   showChord = () => {
     this.setState({
       chordToDisplay: getChordFromRoot(getNoteByName("C"), "major")
+    });
+  };
+
+  cleanAll = () => {
+    this.setState({
+      chordToDisplay: []
     });
   };
 
@@ -34,6 +40,9 @@ class App extends Component {
           <button onClick={this.showChord}>
             Show me <b>C Maj</b> chord
           </button>
+        </div>
+        <div className="cleanFretboard">
+          <button onClick={this.cleanAll}>Clean all fretboard</button>
         </div>
 
         <form>

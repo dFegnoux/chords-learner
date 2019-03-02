@@ -1,4 +1,4 @@
-import { goToIntervalAfter } from "./Notes";
+import { goToIntervalAfter, createNote } from "./Notes";
 
 const scalesTypesIntervals = [
   {
@@ -19,7 +19,7 @@ const scalesTypesIntervals = [
  * @return Scale note composition
  */
 export function getScaleNotesFromRoot(rootNote, scaleName) {
-  const scale = [rootNote];
+  const scale = [createNote(rootNote.name, rootNote.octave)];
   let currentNote = rootNote;
   scalesTypesIntervals
     .find(scaleType => scaleType.name === scaleName)

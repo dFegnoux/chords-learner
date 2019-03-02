@@ -1,4 +1,4 @@
-import { goToIntervalAfter } from "./Notes";
+import { goToIntervalAfter, createNote } from "./Notes";
 
 const chordsTypesIntervals = [
   {
@@ -23,7 +23,7 @@ const chordsTypesIntervals = [
  * @return Chord note composition
  */
 export function getChordFromRoot(rootNote, chordName) {
-  const chord = [rootNote];
+  const chord = [createNote(rootNote.name, rootNote.octave)];
   chordsTypesIntervals
     .find(chordType => chordType.name === chordName)
     .intervals.forEach(interval =>

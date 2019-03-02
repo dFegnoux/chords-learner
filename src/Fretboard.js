@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { goToIntervalAfter } from "./helpers/Notes";
+import { createNote, goToIntervalAfter } from "./helpers/Notes";
 import PropTypes from "prop-types";
 import String from "./String";
+import { equals, uniq } from "ramda";
 
 class Fretboard extends Component {
   static propTypes = {
@@ -15,7 +16,8 @@ class Fretboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fretboard: []
+      fretboard: [],
+      userResponses: []
     };
   }
 
@@ -28,10 +30,13 @@ class Fretboard extends Component {
    * @returns {Array} The string containing all notes
    */
   buildString(startNote, lastFret) {
-    const string = [startNote];
+    const string = [
+      { note: createNote(startNote.name, startNote.octave), string: startNote }
+    ];
 
     for (let i = 0; i < lastFret; i++) {
-      string.push(goToIntervalAfter(1, string[i]));
+      const nextNote = goToIntervalAfter(1, string[i].note);
+      string.push({ note: nextNote, string: startNote });
     }
 
     return string;
@@ -49,7 +54,24 @@ class Fretboard extends Component {
     });
   }
 
-  checkNote(note, string) {}
+  selectNote = note => {
+    const { fretboard } = this.state;
+
+    const updatedFretboard = fretboard.map(string => {
+      return string.map(fret => {
+        const checked = equals(fret, note) ? !fret.checked : fret.checked;
+        return {
+          ...fret,
+          checked
+        };
+      });
+    });
+
+    this.setState({
+      fretboard: updatedFretboard,
+      userResponses: uniq([...this.state.userResponses, note.note.name])
+    });
+  };
 
   componentDidUpdate(prevProps) {
     const { notesToDisplay } = this.props;
@@ -62,7 +84,9 @@ class Fretboard extends Component {
         return string.map(fret => {
           return {
             ...fret,
-            hintEnabled: !!notesToDisplay.find(note => note.name === fret.name)
+            hintEnabled: !!notesToDisplay.find(
+              note => note.name === fret.note.name
+            )
           };
         });
       });
@@ -73,15 +97,26 @@ class Fretboard extends Component {
   }
 
   render() {
-    const { fretboard } = this.state;
+    const { fretboard, userResponses } = this.state;
+
     return (
-      <div className="fretboard">
-        {fretboard.map(stringNotes => (
-          <String
-            key={`${stringNotes[0].name}${stringNotes[0].octave}-string`}
-            notes={stringNotes}
-          />
-        ))}
+      <div>
+        <div className="fretboard">
+          {fretboard.map(string => (
+            <String
+              key={`${string[0].note.name}${string[0].note.octave}-string`}
+              frets={string}
+              selectNote={this.selectNote}
+            />
+          ))}
+        </div>
+
+        {!!userResponses.length && (
+          <div className="userResponse">
+            <span>You've selected : </span>
+            <span>{userResponses.join(",")}</span>
+          </div>
+        )}
       </div>
     );
   }

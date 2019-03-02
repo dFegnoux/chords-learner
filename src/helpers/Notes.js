@@ -1,5 +1,13 @@
 const Notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
+export function createNote(name, octave, checked = false) {
+  return {
+    name,
+    octave,
+    checked
+  };
+}
+
 export function getNotesName() {
   return Notes;
 }
@@ -23,11 +31,11 @@ export function goToIntervalAfter(interval, rootNote) {
     we can tell that we are in the superior octave
     when when loop at the beginning of it
     */
-    return {
-      name: Notes[rootNoteIndex + interval - Notes.length],
-      octave: rootNote.octave + 1
-    };
+    return createNote(
+      Notes[rootNoteIndex + interval - Notes.length],
+      rootNote.octave + 1
+    );
   } else {
-    return { ...rootNote, name: Notes[rootNoteIndex + interval] };
+    return createNote(Notes[rootNoteIndex + interval], rootNote.octave);
   }
 }
